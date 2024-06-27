@@ -143,6 +143,7 @@ a {
     min-width: 150px;
     text-align: center;
     box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color); /* Boxy shadow */
+    cursor: pointer;
 }
 
 #search-bar {
@@ -218,6 +219,39 @@ a {
 
 .constituency li:hover {
     background-color: var(--hover-bg-color);
+}
+
+.hidden {
+    display: none;
+}
+
+/* Style for other parties list */
+#other-parties-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#other-parties-container h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+#other-parties-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#other-parties-list li {
+    margin: 10px 0;
+    padding: 10px 20px;
+    border-radius: 12px;
+    background-color: var(--hover-bg-color);
+    color: var(--text-color);
+    font-size: 1.2em;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-align: center;
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color); /* Boxy shadow */
 }
 
 /* Responsive design */

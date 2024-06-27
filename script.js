@@ -1,3 +1,16 @@
+const majorParties = [
+    "conservativeandunionistparty",
+    "labourparty",
+    "liberaldemocrats",
+    "greenparty",
+    "scottishnationalparty(snp)",
+    "plaidcymru-thepartyofwales",
+    "ukindependenceparty(ukip)",
+    "reformuk",
+    "independent",
+    "labourandco-operativeparty"
+];
+
 const partyColors = {
     "conservativeandunionistparty": "#0087dc",
     "labourparty": "#e4003b",
@@ -27,7 +40,17 @@ const seatCounts = {
     "other": 0
 };
 
+const otherParties = {};
+
 function updateSeatCount(party, increment) {
+    if (!majorParties.includes(party)) {
+        if (!otherParties[party]) {
+            otherParties[party] = 0;
+        }
+        otherParties[party] += increment;
+        party = "other";
+    }
+
     if (party === "labourandco-operativeparty") {
         seatCounts["labourparty"] += increment;
         document.getElementById("labourparty-seats").textContent = seatCounts["labourparty"];
@@ -128,12 +151,31 @@ function toggleTheme() {
     }
 }
 
+function toggleOtherParties() {
+    const otherPartiesContainer = document.getElementById('other-parties-container');
+    const otherPartiesList = document.getElementById('other-parties-list');
+    otherPartiesContainer.classList.toggle('hidden');
+
+    // Convert the otherParties object into an array and sort by the number of seats
+    const sortedOtherParties = Object.keys(otherParties).map(party => {
+        return { party, seats: otherParties[party] };
+    }).sort((a, b) => b.seats - a.seats);
+
+    // Populate the other parties list
+    otherPartiesList.innerHTML = '';
+    sortedOtherParties.forEach(item => {
+        const partyItem = document.createElement('li');
+        partyItem.textContent = `${item.party}: ${item.seats}`;
+        otherPartiesList.appendChild(partyItem);
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const toggleButton = document.getElementById('toggle-theme');
     toggleButton.addEventListener('click', toggleTheme);
 
     // Load the HTML content dynamically
-    fetch('updated_constituencies.html')
+    fetch('constituencies.html')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);
