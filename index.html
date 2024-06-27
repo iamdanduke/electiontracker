@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UK General Election 2024 Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/5122637082.js" crossorigin="anonymous"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+</head>
+<body class="dark-mode">
+    <div id="app">
+        <h1>UK General Election Tracker</h1>
+        <button id="toggle-theme">
+            <i class="fas fa-sun"></i>
+            <i class="fas fa-moon" style="display: none;"></i>
+        </button>
+        <div id="seat-tracker">
+            <h2>Total number of seats</h2>
+            <ul id="seat-counts">
+                <li data-party="conservativeandunionistparty">Conservative: <span id="conservativeandunionistparty-seats">0</span></li>
+                <li data-party="labourparty">Labour: <span id="labourparty-seats">0</span></li>
+                <li data-party="liberaldemocrats">Liberal Democrats: <span id="liberaldemocrats-seats">0</span></li>
+                <li data-party="greenparty">Green Party: <span id="greenparty-seats">0</span></li>
+                <li data-party="scottishnationalparty(snp)">SNP: <span id="scottishnationalparty(snp)-seats">0</span></li>
+                <li data-party="plaidcymru-thepartyofwales">Plaid Cymru: <span id="plaidcymru-thepartyofwales-seats">0</span></li>
+                <li data-party="ukindependenceparty(ukip)">UKIP: <span id="ukindependenceparty(ukip)-seats">0</span></li>
+                <li data-party="reformuk">Reform UK: <span id="reformuk-seats">0</span></li>
+                <li data-party="independent">Independent: <span id="independent-seats">0</span></li>
+                <li data-party="other">Other: <span id="other-seats">0</span></li>
+            </ul>
+        </div>
+        <input type="text" id="search-bar" placeholder="Search for a constituency...">
+        <div id="constituencies"></div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        // Load the HTML content dynamically
+        fetch('constituencies.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('constituencies').innerHTML = data;
+                initializeSearch();
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    </script>
+</body>
+</html>
